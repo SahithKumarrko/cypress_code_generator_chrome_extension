@@ -1,0 +1,68 @@
+{
+    "name": "Cypress Code Generator",
+    "short_name": "Cypress CG",
+    "version": "1.0",
+    "description": "Records a user session and generates cypress code for automation and testing purposes.",
+    "manifest_version": 3,
+    "permissions": [
+        "activeTab",
+        "storage",
+        "tabs",
+        "webNavigation",
+        "background",
+        "scripting"
+    ],
+    "icons": {
+        "16": "./images/icon16.png",
+        "32": "./images/icon32.png",
+        "48": "./images/icon48.png",
+        "128": "./images/icon128.png"
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "<all_urls>"
+            ],
+            "js": [
+                "./scripts/jquery.min.js",
+                "./scripts/xpath_viewer.js"
+            ],
+            "all_frames": false,
+            "run_at": "document_idle"
+        }
+    ],
+    "action": {
+        "default_icon": {
+            "16": "images/icon16.png",
+            "32": "images/icon32.png"
+        },
+        "default_title": "Cypress Code Generator",
+        "default_popup": "./popups/popup.html"
+    },
+    "author": "Sahith Kumar Mattala",
+    "background": {
+        "service_worker": "./scripts/background.js",
+        "type": "module"
+    },
+    "offline_enabled": true,
+    "options_ui": {
+        "page": "./settings/settings.html",
+        "open_in_tab": false
+    },
+    "web_accessible_resources": [
+        {
+            "resources": [
+                "fonts/FontAwesome.otf",
+                "fonts/fontawesome-webfont.eot",
+                "fonts/fontawesome-webfont.svg",
+                "fonts/fontawesome-webfont.ttf",
+                "fonts/fontawesome-webfont.woff",
+                "fonts/fontawesome-webfont.woff2"
+            ],
+            "matches": [
+                "<all_urls>"
+            ],
+            "use_dynamic_url": true
+        }
+    ]
+}
