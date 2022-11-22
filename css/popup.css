@@ -51,12 +51,13 @@ body {
     cursor: pointer;
 }
 
-.start {
+#start {
     color: #28a745;
 }
 
-.stop {
+#stop {
     color: #dc3545;
+    margin-left: 1rem !important;
 }
 
 #refresh {
@@ -70,7 +71,7 @@ body {
 }
 
 .start-pause {
-    color: #007bff;
+    color: #007bff !important;
 }
 
 .action-btn:hover {
