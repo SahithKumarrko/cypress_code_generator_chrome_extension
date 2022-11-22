@@ -1,12 +1,12 @@
 var current_tab;
 var bg;
-var data = { activeTab: -1, url: "", state: "stop", from: "popup" }
-function sendMessage(tabId, request, callback = (response) => { }) {
-    chrome.tabs.sendMessage(tabId, request, callback);
+var data = { activeTab: -1, url: "", state: "stop" }
+function sendMessage(tabId, request, callback = (response) => { }, from = "popup") {
+    chrome.tabs.sendMessage(tabId, { from: from, ...request }, callback);
 }
 
-function sendMessageToBackground(request, callback = (response) => { }) {
-    chrome.runtime.sendMessage(request, callback);
+function sendMessageToBackground(request, callback = (response) => { }, from = "popup") {
+    chrome.runtime.sendMessage({ from: from, ...request }, callback);
 }
 
 function start_recording() {

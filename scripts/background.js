@@ -4,6 +4,7 @@ let window_id;
 
 let activeTab = null;
 
+var data = { activeTab: -1, url: "", state: "stop" }
 
 chrome.tabs.onActivated.addListener(function (activeInfo) {
 
@@ -19,18 +20,26 @@ chrome.tabs.onActivated.addListener(function (activeInfo) {
 
 });
 
+chrome.storage.session.get(Object.keys(data)).then((v) => {
+    Object.assign(data, v);
+    console.log("Storage :: ", data);
+});
+
 chrome.tabs.onUpdated.addListener(function (tabId, changeInfo, tab) {
 
     if (changeInfo.status == "complete") {
 
-        setTimeout(() => {
-            try {
-                chrome.tabs.sendMessage(tabId, { "from": "background updated", "id": tabId }, function (r) { });
-                console.log("Sent update");
-            } catch (err) {
-                console.log("Error :: ", err)
-            }
-        }, 3000);
+        try {
+            chrome.storage.session.get(Object.keys(data)).then((v) => {
+                if (v.activeTab == tabId) {
+                    chrome.tabs.sendMessage(tabId, { from: "page update", changeTabId: tabId, ...v }, function (r) { });
+                }
+            });
+
+            console.log("Sent update");
+        } catch (err) {
+            console.log("Error :: ", err)
+        }
     }
 
 });
@@ -56,5 +65,14 @@ chrome.runtime.onMessage.addListener(
     }
 );
 
-
+chrome.storage.onChanged.addListener(
+    (c, a) => {
+        for (var k in c) {
+            if (k in data) {
+                data[k] = c[k].newValue;
+            }
+        }
+        console.log("Data Changed :: ", data);
+    }
+)
 

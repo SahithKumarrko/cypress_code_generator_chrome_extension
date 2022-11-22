@@ -2,7 +2,7 @@
 console.log("Content loaded");
 var el = {};
 var clicked = false;
-var data = { activeTab: -1, url: "", state: "stop", from: "popup" }
+var data = { activeTab: -1, url: "", state: "stop" }
 
 function get_height(ele) {
     var elmHeight, elmMargin;
@@ -164,6 +164,22 @@ async function performAction(request) {
             document.removeEventListener("click", handleClick);
         }
 
+    }
+    if (request.from == "page update") {
+
+        console.log("Refreshed");
+        for (var k in request) {
+            if (k in data) {
+                data[k] = request[k];
+            }
+        }
+        console.log("Data :: ", data);
+        if (data.activeTab == request.changeTabId && data.state == 'start') {
+            console.log("Active tab");
+            document.addEventListener("mouseover", handleMouseOver);
+            document.addEventListener("click", handleClick);
+
+        }
     }
 
     // await delay(2000);
