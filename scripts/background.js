@@ -40,8 +40,19 @@ chrome.runtime.onMessage.addListener(
         console.log("Received background :: ", request, sender);
 
         if (request.from == "popup") {
-            extension_enabled_tab = request.tab_id;
+            activeTab = request.tabId;
+            chrome.storage.session.set({ activeTab: activeTab, url: request.url }, function () {
+                if (chrome.runtime.lastError) {
+                    sendResponse({ "response": 500 });
+                }
+                console.log('Value is set ');
+                sendResponse({ "response": 200 });
+            });
+            return true;
+
         }
+
+        sendResponse(true);
     }
 );
 

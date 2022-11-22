@@ -4,18 +4,26 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="font-awesome.min.css">
+    <link rel="stylesheet" href="/css/popup.css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
 
     <script src="popup.js"></script>
 </head>
 
 <body>
+    <div id="initial-loading">
+        <div>
+            <i class="fa fa-spin fa-spinner"></i>
+            <h2 style="font-size: 1.5rem;margin-top: 1rem;">Loading...</h2>
+        </div>
+    </div>
     <div class="header">
         <h2 id="title">Cypress Code Generator</h2>
         <div id="controls">
-            <button id="action-btn" class="btn start" value="start">Start</button>
-            <i id="refresh" class="fa fa-refresh" style="font-size:24px; margin-left: 1rem"></i>
+            <!-- <button id="action-btn" class="btn start" value="start">Start</button> -->
+            <i id="start_stop" title="Start Recording" class="fa fa-play start action-btn" value="start"></i>
+            <i id="pause" title="Pause" class="fa fa-pause action-btn" style="display: none;"></i>
+            <i id="refresh" title="Reset" class="fa fa-refresh action-btn" style="display: none;"></i>
         </div>
     </div>
     <div id="main-content">

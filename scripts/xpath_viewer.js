@@ -2,6 +2,7 @@
 console.log("Content loaded");
 var el = {};
 var clicked = false;
+var data = { activeTab: -1, url: "", state: "stop", from: "popup" }
 
 function get_height(ele) {
     var elmHeight, elmMargin;
@@ -137,22 +138,37 @@ function handleClick(event) {
     }
 }
 
-document.addEventListener("mouseover", handleMouseOver);
-
-document.addEventListener("click", handleClick);
-
-var current_tab;
+var current_tab, url;
 
 
 chrome.runtime.onMessage.addListener(
     function (request, sender, sendResponse) {
-        console.log("Received :: ", request);
-
-        if (request.from == "popup") {
-            current_tab = request.tab_id;
-        }
-        sendResponse(true);
+        performAction(request).then((response) => sendResponse(response));
+        return true;
     }
 );
 
+const delay = ms => new Promise(res => setTimeout(res, ms));
+
+async function performAction(request) {
+    console.log("Received :: ", request);
+    if (request.from == "popup") {
+        data = request;
+        if (data.state == "start") {
+            console.log("Starting")
+            document.addEventListener("mouseover", handleMouseOver);
+            document.addEventListener("click", handleClick);
+        } else {
+            console.log("Stopping")
+            document.removeEventListener("mouseover", handleMouseOver);
+            document.removeEventListener("click", handleClick);
+        }
+
+    }
+
+    // await delay(2000);
+    // console.log("Waited 2s");
+
+    return { "received": true }
+}
 
