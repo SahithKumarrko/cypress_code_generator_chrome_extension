@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body style="margin: 1rem;">
+    <label for="fname">For Label</label><br /><br />
+    <input type="text" id="fname" name="fname" value="input with name" /><br /><br />
+    <input type="text" role="testing role's" value="Test Role Input"><br /><br />
+    <label for="lname">For</label><br /><br />
+    <input type="text" id="lname" data-custid="input-testing" value="input with data custid" /><br /><br />
+    <label data-testid="testing">Label with Data Test ID but priority is for label text</label><br /><br />
+    <label aria-label="Aria Label">Arai Label (label tag)</label><br /><br />
+    <label>Label Text</label><br /><br />
+    <h2 data-testid="1" data-custid="2">Multiple data id's (data-testid, data-custid). Priority innerText</h2><br />
+    <div data-testid="1" data-custid="2" title="Testng multiple data-testid without innerText"
+        style="width: 100px;height: 150px; background-color: cornflowerblue;"></div><br />
+    <h2>Testing text</h2><br />
+    <h2>Normal html</h2><br />
+    <h2>Normal html</h2><br />
+
+</body>
+
+</html>
