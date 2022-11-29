@@ -25,6 +25,7 @@
             ],
             "js": [
                 "./js/jquery.min.js",
+                "./scripts/roles.js",
                 "./scripts/xpath_viewer.js"
             ],
             "all_frames": false,
